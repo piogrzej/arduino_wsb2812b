@@ -41,9 +41,10 @@ void setup()
 
 void setAllLedsToColor(const uint8_t R, const uint8_t G, const uint8_t B)
 {
+  RgbColor color(R,G,B);
+  
   for(uint8_t i = 0; i < LED_COUNT; ++i)
   {
-    RgbColor color(R,G,B);
     strip.SetPixelColor(i, color);
   }
 }
