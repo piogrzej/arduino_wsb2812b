@@ -1,5 +1,6 @@
 #include <NeoPixelBus.h>
 
+#undef SERIAL_RX_BUFFER_SIZE
 #define SERIAL_RX_BUFFER_SIZE 512 // incrase size of serial buffer
 
 const uint16_t LED_COUNT = 60;
