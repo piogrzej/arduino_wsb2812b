@@ -8,12 +8,7 @@ const uint8_t LED_PIN = 13;  // make sure to set this to the correct pin
 #define colorSaturation 128
 
 NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip(LED_COUNT, LED_PIN);
-
-
-RgbColor red(colorSaturation, 0, 0);
 RgbColor green(0, colorSaturation, 0);
-RgbColor blue(0, 0, colorSaturation);
-RgbColor white(colorSaturation);
 
 // LRGB - led, red, green, blue
 // led means index of led,
@@ -42,7 +37,7 @@ void setup()
 void setAllLedsToColor(const uint8_t R, const uint8_t G, const uint8_t B)
 {
   RgbColor color(R,G,B);
-  
+
   for(uint8_t i = 0; i < LED_COUNT; ++i)
   {
     strip.SetPixelColor(i, color);
@@ -51,10 +46,6 @@ void setAllLedsToColor(const uint8_t R, const uint8_t G, const uint8_t B)
 
 void loop()
 {
-
-  //Serial.print("Avalible: ");
-  //Serial.println(Serial.available(), DEC);
-
   if (Serial.available() > 0)
   {
     
