@@ -14,6 +14,7 @@ RgbColor red(colorSaturation, 0, 0);
 RgbColor green(0, colorSaturation, 0);
 RgbColor blue(0, 0, colorSaturation);
 RgbColor white(colorSaturation);
+RgbColor startColor(15,60,10);
 
 // LRGB - led, red, green, blue
 // led means index of led,
@@ -34,7 +35,7 @@ void setup()
 
     for(int i=0; i<LED_COUNT; ++i)
     {
-        strip.SetPixelColor(i, green);   
+        strip.SetPixelColor(i, startColor);   
     }
     strip.Show();
 }
