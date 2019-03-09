@@ -6,11 +6,13 @@
 const uint16_t LED_COUNT = 60;
 const uint8_t LED_PIN = 13;  // make sure to set this to the correct pin
 
+const uint8_t COLOR_SATURATION = 128;
+
 NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip(LED_COUNT, LED_PIN);
-RgbColor red(colorSaturation, 0, 0);
-RgbColor green(0, colorSaturation, 0);
-RgbColor blue(0, 0, colorSaturation);
-RgbColor white(colorSaturation);
+RgbColor red(COLOR_SATURATION, 0, 0);
+RgbColor green(0, COLOR_SATURATION, 0);
+RgbColor blue(0, 0, COLOR_SATURATION);
+RgbColor white(COLOR_SATURATION);
 RgbColor startColor(15,60,10);
 
 // LRGB - led, red, green, blue
@@ -23,6 +25,8 @@ uint16_t    counter=0;
 
 void setup()
 {
+    delay(2000); //give PC some time to bootup in case of restart
+
     Serial.begin(115200);
     while (!Serial); // wait for serial attach
 
