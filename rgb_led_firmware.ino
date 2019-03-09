@@ -5,15 +5,18 @@
 
 const uint16_t LED_COUNT = 60;
 const uint8_t LED_PIN = 13;  // make sure to set this to the correct pin
-const uint8_t RAZER_GREEN_COLOR_SATURATION = 128;
 
 NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip(LED_COUNT, LED_PIN);
-RgbColor razerGreen(0, RAZER_GREEN_COLOR_SATURATION, 0);
+RgbColor red(colorSaturation, 0, 0);
+RgbColor green(0, colorSaturation, 0);
+RgbColor blue(0, 0, colorSaturation);
+RgbColor white(colorSaturation);
+RgbColor startColor(15,60,10);
 
 // LRGB - led, red, green, blue
 // led means index of led,
 // led can store special values:
-//    255 - show changes,
+//    255 - applay changes,
 //    254 - set R,G,B color to all leds
 uint8_t     LRGB[4];
 uint16_t    counter=0;
@@ -29,7 +32,7 @@ void setup()
 
     for(int i=0; i<LED_COUNT; ++i)
     {
-        strip.SetPixelColor(i, razerGreen);   
+        strip.SetPixelColor(i, startColor);   
     }
     strip.Show();
 }

@@ -3,28 +3,25 @@ import time
 
 LED_COUNT = 60
 SHORT_DELAY_TIME = 0.008
-LONG_DELAY_TIME = 0.03
-SERIAL = '/dev/ttyUSB0'
+LONG_DELAY_TIME = 0.09
+SERIAL_PORT = '/dev/ttyUSB0'
 BAUDRATE = 115200
 byteArray = bytearray(4)
+SERIAL = serial.Serial(SERIAL_PORT, BAUDRATE, timeout=1)
 
 def setSingleLedToColor(led,R,G,B):
     
-    s = serial.Serial(SERIAL, BAUDRATE, timeout=1)
     byteArray = bytearray(4)
 
     byteArray[0] = led
     byteArray[1] = R
     byteArray[2] = G
     byteArray[3] = B
-    s.write(byteArray)
+    SERIAL.write(byteArray)
     # delay to give arduino some time to proces request
     time.sleep(SHORT_DELAY_TIME)
 
-    s.close()
-
 def applyChanges():
-    s = serial.Serial(SERIAL, BAUDRATE, timeout=1)
     byteArray = bytearray(4)
 
     byteArray[0] = 255
@@ -32,26 +29,20 @@ def applyChanges():
     byteArray[2] = 0
     byteArray[3] = 0
 
-    s.write(byteArray)
+    SERIAL.write(byteArray)
     # delay to give arduino some time to proces request
     time.sleep(SHORT_DELAY_TIME)
 
-    s.close()
 
 def setAllLedsToColor(R,G,B):
-
-    s = serial.Serial(SERIAL, BAUDRATE, timeout=1)
-
     byteArray[0] = 254
-    byteArray[1] = R
-    byteArray[2] = G
-    byteArray[3] = B
+    byteArray[1] = int(R/10)
+    byteArray[2] = int(G/10)
+    byteArray[3] = int(B/10)
 
-    s.write(byteArray)
+    SERIAL.write(byteArray)
     # delay to give arduino some time to proces request
     time.sleep(LONG_DELAY_TIME)
-
-    s.close()
 
 def endlessRainbow():
 
@@ -93,4 +84,7 @@ def endlessRainbow():
         setAllLedsToColor(68, 34, 153)
         applyChanges()
 
+
 endlessRainbow()
+
+SERIAL.close()
