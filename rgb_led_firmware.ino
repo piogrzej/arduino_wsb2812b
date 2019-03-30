@@ -3,6 +3,7 @@
 #undef SERIAL_RX_BUFFER_SIZE
 #define SERIAL_RX_BUFFER_SIZE 512 // incrase size of serial buffer
 
+const uint16_t BAUDRATE = 9600;
 const uint16_t LED_COUNT = 60;
 const uint8_t LED_PIN = 13;  // make sure to set this to the correct pin
 
@@ -27,7 +28,7 @@ void setup()
 {
     delay(2000); //give PC some time to bootup in case of restart
 
-    Serial.begin(115200);
+    Serial.begin(BAUDRATE);
     while (!Serial); // wait for serial attach
 
     // this resets all the neopixels to an off state

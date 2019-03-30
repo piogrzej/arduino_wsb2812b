@@ -5,7 +5,7 @@ LED_COUNT = 60
 SHORT_DELAY_TIME = 0.008
 LONG_DELAY_TIME = 0.09
 SERIAL_PORT = '/dev/ttyUSB0'
-BAUDRATE = 115200
+BAUDRATE = 9600
 byteArray = bytearray(4)
 SERIAL = serial.Serial(SERIAL_PORT, BAUDRATE, timeout=1)
 
