@@ -1,1 +1,8 @@
 .vscode
+cpp_client/x64/*
+cpp_client/.vs/*
+cpp_client/Release/*
+cpp_client/cpp_client/Release/*
+cpp_client/cpp_client/x64/*
+cpp_client/cpp_client/Debug/*
+
