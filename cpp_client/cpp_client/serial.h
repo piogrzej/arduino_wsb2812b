@@ -20,8 +20,8 @@ private:
 public:
 	Serial(char* port_name);
 	~Serial();
-	int read(char* buffer, uint32_t buf_size);
-	bool write(char *buffer, uint32_t buf_size);
+	int read(BYTE* buffer, uint32_t buf_size);
+	bool write(BYTE* buffer, uint32_t buf_size);
 	bool isConnected();
 };
 

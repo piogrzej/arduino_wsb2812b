@@ -9,7 +9,6 @@ Screen::Screen()
 	screenData = (BYTE*)malloc(4 * screenX * screenY);
 }
 
-
 Screen::~Screen()
 {
 	free(screenData);
@@ -56,7 +55,7 @@ inline uint8_t Screen::pixR(int x, int y) const
 	return screenData[4 * ((y*screenX) + x) + 2];
 }
 
-void Screen::getAvgColor(char byteArray[4]) const
+void Screen::getAvgColor(BYTE rgb[3]) const
 {
 	uint8_t r, g, b;
 
@@ -64,19 +63,24 @@ void Screen::getAvgColor(char byteArray[4]) const
 	uint64_t g_sum = 0;
 	uint64_t b_sum = 0;
 
-	uint64_t counter = 0;
+	//counter is equal to 1 avoid division by 0 when whole screen is black or white
+	uint64_t counter = 1;
 
+	//for ultrawide screens focus is on center of screen
+#ifdef ULTRAWIDE_MODE
+	for (int x = 320; x < screenX-320; ++x)
+#else
 	for (int x = 0; x < screenX; ++x)
+#endif
 		for (int y = 0; y < screenY; ++y)
 		{
 			r = pixR(x, y);
 			g =	pixG(x, y);
 			b = pixB(x, y);
 
-			//skip black color
-			if (r < 10 && g < 10 && b < 10) continue;
-			//skip white color
-			if (r > 240 && g > 240 && b > 240) continue;
+			//skip black/white color
+			if ( (r < 10 && g < 10 && b < 10) ||
+				 (r >240 && g >240 && b >240) ) continue;
 
 			r_sum += r;
 			g_sum += g;
@@ -85,7 +89,7 @@ void Screen::getAvgColor(char byteArray[4]) const
 			counter++;
 		}
 
-	byteArray[1] = static_cast<char>(r_sum / (counter)) / 2;
-	byteArray[2] = static_cast<char>(g_sum / (counter)) / 2;
-	byteArray[3] = static_cast<char>(b_sum / (counter)) / 2;
+	rgb[0] = static_cast<char>(r_sum / counter) / COLOR_RAREFACTION;
+	rgb[1] = static_cast<char>(g_sum / counter) / COLOR_RAREFACTION;
+	rgb[2] = static_cast<char>(b_sum / counter) / COLOR_RAREFACTION;
 }

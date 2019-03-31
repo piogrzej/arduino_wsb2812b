@@ -6,6 +6,10 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+#define ULTRAWIDE_MODE
+#define COLOR_RAREFACTION 2
+
+
 class Screen
 {
 private:
@@ -20,7 +24,7 @@ public:
 	Screen();
 	~Screen();
 	void capture();
-	void getAvgColor(char byteArray[4]) const;
+	void getAvgColor(BYTE rgb[3]) const;
 };
 
 #endif

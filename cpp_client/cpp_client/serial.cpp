@@ -13,9 +13,9 @@ Serial::Serial(char* port_name)
 								FILE_ATTRIBUTE_NORMAL,
 								NULL);
 
-	if (this->handler == INVALID_HANDLE_VALUE)
+	if (INVALID_HANDLE_VALUE == this->handler)
 	{
-		if (GetLastError() == ERROR_FILE_NOT_FOUND)
+		if (ERROR_FILE_NOT_FOUND == GetLastError())
 			printf("ERROR: %s not avalible\n", port_name);
 		else
 			printf("ERROR: unknown!");
@@ -60,17 +60,16 @@ Serial::~Serial()
 	}
 }
 
-int Serial::read(char* buffer, uint32_t buf_size)
+int Serial::read(BYTE* buffer, uint32_t buf_size)
 {
 	DWORD bytesRead;
 	unsigned int toRead = 0;
 
 	ClearCommError(this->handler, &this->errors, &this->status);
 
-	if (this->status.cbInQue > 0) {
-		if (this->status.cbInQue > buf_size) {
-			toRead = buf_size;
-		}
+	if (this->status.cbInQue > 0)
+	{
+		if (this->status.cbInQue > buf_size) toRead = buf_size;
 		else toRead = this->status.cbInQue;
 	}
 
@@ -79,11 +78,12 @@ int Serial::read(char* buffer, uint32_t buf_size)
 	return 0;
 }
 
-bool Serial::write(char* buffer, uint32_t buf_size)
+bool Serial::write(BYTE* buffer, uint32_t buf_size)
 {
 	DWORD bytesSend;
 
-	if (!WriteFile(this->handler, (void*)buffer, buf_size, &bytesSend, 0)) {
+	if (!WriteFile(this->handler, (void*)buffer, buf_size, &bytesSend, 0))
+	{
 		ClearCommError(this->handler, &this->errors, &this->status);
 		return false;
 	}
