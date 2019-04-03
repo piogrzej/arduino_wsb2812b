@@ -16,6 +16,8 @@ int main()
 
 	BYTE byteArray[4];
 
+	printf("Program started, close this window to exit.\n");
+
 	while (true)
 	{
 		screen.capture();
@@ -23,7 +25,6 @@ int main()
 		//set color
 		byteArray[0] = SET_SINGLE_COLOR_TO_ALL_LEDS;
 		screen.getAvgColor(byteArray+sizeof(BYTE));
-
 		serial_port.write(byteArray, 4);
 
 		//apply changes

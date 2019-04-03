@@ -9,7 +9,6 @@
 #define ULTRAWIDE_MODE
 #define COLOR_RAREFACTION 2
 
-
 class Screen
 {
 private:
@@ -20,6 +19,7 @@ private:
 	inline uint8_t pixR(int x, int y) const;
 	inline uint8_t pixG(int x, int y) const;
 	inline uint8_t pixB(int x, int y) const;
+	inline uint8_t pixA(int x, int y) const;
 public:
 	Screen();
 	~Screen();
@@ -28,4 +28,3 @@ public:
 };
 
 #endif
-
